@@ -1,0 +1,1 @@
+print("S" if int(input()) + int(input())<=50 else "N")
