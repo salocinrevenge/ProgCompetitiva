@@ -46,26 +46,30 @@ def mazeSolver(maze, inicio = None, fim = None):
     # retorna uma lista de caracteres representando o caminho do inicio ao fim mais proximo
     # ou None se não houver caminho
     # altera o labirinto para resolve-lo
-
+    
+    caracteres = {"caminho": ".", "parede": "#", "inicio": "I", "fim": "F"}
+    direcoesIda = {"direita": (0, 1, "<"), "esquerda": (0, -1, ">"), "cima": (-1, 0, "V"), "baixo": (1, 0, "A")} # (linha, coluna, caracter indicando de onde vim)
+    
     if fim == None or inicio == None:
     # obtem os pontos de inicio e fim se eles n forem passados
         inicio = []
         fim = []
         for i in range(len(maze)):
             for j in range(len(maze[0])):
-                if maze[i][j][0] == "I":
+                if maze[i][j][0] == caracteres["inicio"]:
                     inicio.append((i, j))
-                if maze[i][j][0] == "F":
+                if maze[i][j][0] == caracteres["fim"]:
                     fim.append((i, j))
+            
     else:
+        # seta os inicios e fins
         for pos in inicio:
             maze[pos[0]][pos[1]] = (caracteres["inicio"], 0, None)
         for pos in fim:
             maze[pos[0]][pos[1]] = (caracteres["fim"], 0, None)
 
-    caracteres = {"caminho": ".", "parede": "#", "inicio": "I", "fim": "F"}
-    direcoesIda = {"direita": (0, 1, "<"), "esquerda": (0, -1, ">"), "cima": (-1, 0, "V"), "baixo": (1, 0, "A")} # (linha, coluna, caracter indicando de onde vim)
-    # seta os inicios e fins
+    
+    
 
     atuais = fim.copy()
     resolvido = False
