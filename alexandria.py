@@ -122,6 +122,61 @@ def getRelevante(labirinto):
                 fim.append((i, j))
     return inicio, fim
 
+def lambdaFunction(listaPontos):
+    # retorna os dois pontos ordenados com base no y
+    listaPontos.sort(key = lambda x: x[1])
+    return listaPontos
+
+# geometria:
+def distancia(ponto1, ponto2):
+    # retorna a distancia entre dois pontos
+    return ((ponto1[0] - ponto2[0])**2 + (ponto1[1] - ponto2[1])**2)**0.5
+
+def parametricaFromPontos(ponto1, ponto2):
+    # retorna os coeficientes a e b em y=ax+b da reta que passa pelos dois pontos
+    a = (ponto2[1] - ponto1[1]) / (ponto2[0] - ponto1[0])
+    b = ponto1[1] - a * ponto1[0]
+    return (a, b)
+
+def geralFromParametrica(reta):
+    # retorna os coeficientes a b e c em ax+by+c=0 da reta que passa pelos dois pontos
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    return reta[0], -1, reta[1]
+
+def geralFromPontos(ponto1, ponto2):
+    # retorna os coeficientes a b e c em ax+by+c=0 da reta que passa pelos dois pontos
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    return geralFromParametrica(parametricaFromPontos(ponto1, ponto2))
+
+def parametricaFromGeral(reta):
+    # retorna os coeficientes a e b em y=ax+b da reta que passa pelos dois pontos
+    # reta eh uma tupla (a, b, c) que representa a reta na forma ax+by+c=0
+    return -reta[0] / reta[1], -reta[2] / reta[1]
+
+def pontosFromParam(reta):
+    # retorna dois pontos que pertencem a reta
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    return (0, reta[1]), (1, reta[0] + reta[1])
+
+def distanciaPontoReta(ponto, reta):
+    # retorna a distancia entre um ponto e uma reta
+    # reta eh uma tupla (a, b, c) que representa a reta na forma ax+by+c=0
+    return abs(reta[0] * ponto[0] + reta[1] * ponto[1] + reta[2]) / (reta[0]**2 + reta[1]**2)**0.5
+
+def pontoDeIntersecao(reta1, reta2):
+    # retorna o ponto de intersecao entre duas retas
+    # reta1 e reta2 sao tuplas (a, b) que representam as retas na forma y = ax + b
+    x = (reta2[1] - reta1[1]) / (reta1[0] - reta2[0])
+    y = reta1[0] * x + reta1[1]
+    return (x, y)
+
+def retaPerpendicular(ponto, reta):
+    # retorna a reta perpendicular a reta que passa pelo ponto
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    a = -1 / reta[0]
+    b = ponto[1] - a * ponto[0]
+    return (a, b)
+
 
 def main():
     # ler labirinto
