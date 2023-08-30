@@ -1,3 +1,5 @@
+import math
+
 def buscaBinaria(lista, item):
     inicio = 0
     fim = len(lista) - 1
@@ -176,6 +178,64 @@ def retaPerpendicular(ponto, reta):
     a = -1 / reta[0]
     b = ponto[1] - a * ponto[0]
     return (a, b)
+
+def anguloEntreRetas(reta1, reta2):
+    # retorna o angulo entre duas retas
+    # reta1 e reta2 sao tuplas (a, b) que representam as retas na forma y = ax + b
+    return abs(math.atan(reta1[0]) - math.atan(reta2[0]))
+
+def retaParalela(ponto, reta):
+    # retorna a reta paralela a reta que passa pelo ponto
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    b = ponto[1] - reta[0] * ponto[0]
+    return (reta[0], b)
+
+def retaBissetriz(reta1, reta2):
+    # retorna a reta bissetriz entre duas retas
+    # reta1 e reta2 sao tuplas (a, b) que representam as retas na forma y = ax + b
+    a = (reta1[0] + reta2[0]) / 2
+    b = (reta1[1] + reta2[1]) / 2
+    return (a, b)
+
+def pontoMedio(ponto1, ponto2):
+    # retorna o ponto medio entre dois pontos
+    return ((ponto1[0] + ponto2[0]) / 2, (ponto1[1] + ponto2[1]) / 2)
+
+def retaMediatriz(ponto1, ponto2):
+    # retorna a reta mediatriz entre dois pontos
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    return retaPerpendicular(pontoMedio(ponto1, ponto2), parametricaFromPontos(ponto1, ponto2))
+
+def retaComAngulo(ponto, angulo):
+    # retorna a reta que passa pelo ponto com o angulo dado
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    a = math.tan(angulo)
+    b = ponto[1] - a * ponto[0]
+    return (a, b)
+
+def retaComAnguloEComprimento(ponto, angulo, comprimento):
+    # retorna a reta que passa pelo ponto com o angulo dado e o comprimento dado
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    a = math.tan(angulo)
+    b = ponto[1] - a * ponto[0]
+    return (a, b), (ponto[0] + comprimento * math.cos(angulo), ponto[1] + comprimento * math.sin(angulo))
+
+def retaComAnguloDeReta(reta, angulo, ponto):
+    # retorna a reta que passa pelo ponto com o angulo dado em relacao a reta dada
+    # reta eh uma tupla (a, b) que representa a reta na forma y = ax + b
+    a = math.tan(angulo + math.atan(reta[0]))
+    b = ponto[1] - a * ponto[0]
+    return (a, b)
+
+# Espacial
+
+def retaPerpenticular(vetor1,vetor2):
+    # Retorna o vetor perpendicular a dois vetores
+    # vetor1 e vetor2 sao tuplas (x, y, z) que representam os vetores
+    x = vetor1[1] * vetor2[2] - vetor1[2] * vetor2[1]
+    y = vetor1[2] * vetor2[0] - vetor1[0] * vetor2[2]
+    z = vetor1[0] * vetor2[1] - vetor1[1] * vetor2[0]
+    return (x, y, z)
 
 
 def main():
