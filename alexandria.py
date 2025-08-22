@@ -1,5 +1,38 @@
 import math
 
+def prod(A, B, m = 1):
+    """
+    Computa o produto matricial entre as matrizes A e B com mod m
+    Se quiser produto comum usar m = 1
+    
+    """
+    C = []
+    for i in range(len(A)):
+        c_i = []
+        for j in range(len(B[0])):
+            sum = 0
+            for k in range(len(A[i])):
+                sum = (sum + (A[i][k] * B[k][j])%m) %m
+            c_i.append(sum)
+        C.append(c_i)
+    return C
+
+
+def pot(A, k, m = 1):
+    """
+    Computar a potencia k da matriz A
+    modulo m passado para a multiplicacao. Se não necessario usar m=1
+    
+    """
+    if k == 1:
+        return A
+    if k % 2 == 1:
+        sub = pot(A, k//2, m)
+        return prod(prod(A,sub, m),sub, m)
+    sub = pot(A,k//2, m)
+    return prod(sub,sub, m)
+
+
 def buscaBinaria(lista, item):
     inicio = 0
     fim = len(lista) - 1
